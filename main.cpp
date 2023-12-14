@@ -5,7 +5,7 @@ CSPB 1300 Image Processing Application
 PLEASE FILL OUT THIS SECTION PRIOR TO SUBMISSION
 
 - Your name:
-    <ANSWER>
+    Nathan J Harris
 
 - All project requirements fully met? (YES or NO):
     <ANSWER>
@@ -233,17 +233,86 @@ bool write_image(string filename, const vector<vector<Pixel>> &image)
 //                                DO NOT MODIFY THE SECTION ABOVE                                    //
 //***************************************************************************************************//
 
+// g++ -std=c++11 -o main main.cpp
+// ./main
+
+// g++ -std=c++11 -o main main.cpp && ./main
+
 //
 // YOUR FUNCTION DEFINITIONS HER
 //
 
+// int main()
+// {
+
+//     //
+//     // YOUR CODE HERE
+//     //
+//     cout << "\n\n\nThis line should be your own code!\n\n\n";
+
+//     return 0;
+// }
+
+vector<vector<Pixel>> process_1(const vector<vector<Pixel>> &image)
+{
+    // Get the number of rows/columns from the input 2D vector (remember: num_rows is height, num_columns is width)
+    int height = image.size();
+    int width = image[0].size();
+
+    // Define a new 2D vector the same size as the input 2D vector
+
+    vector<vector<Pixel>> new_img(height, vector<Pixel>(width));
+
+    // For each of the rows in the input 2D vector
+    // For each of the columns in the input 2D vector
+    // Get the color values for the pixel located at this row and column in the input 2D vector
+
+    Pixel this_pixel;
+    int red;
+    int green;
+    int blue;
+
+    double distance;
+    double scaling_factor;
+
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            distance = sqrt(pow(col - width / 2, 2) + pow(row - height / 2, 2));
+            scaling_factor = (height - distance) / height;
+            this_pixel = image[row][col];
+            red = this_pixel.red * scaling_factor;
+            green = this_pixel.green * scaling_factor;
+            blue = this_pixel.blue * scaling_factor;
+
+            new_img[row][col].red = red;
+            new_img[row][col].green = green;
+            new_img[row][col].blue = blue;
+        }
+    }
+    return new_img;
+
+    // Perform the operation on the color values (refer to Runestone for this)
+
+    // Save the new color values to the corresponding pixel located at this row and column in the new 2D vector
+
+    // Return the new 2D vector after the nested for loop is complete
+}
+
 int main()
 {
+    // Read in BMP image file into a 2D vector (using read_image function)
 
-    //
-    // YOUR CODE HERE
-    //
-    cout << "\n\n\nThis line should be your own code!\n\n\n";
+    vector<vector<Pixel>> image = read_image("sample.bmp");
+
+    // Call process_1 function using the input 2D vector and save the result returned to a new 2D vector
+
+    vector<vector<Pixel>> new_image = process_1(image);
+
+    // Write the resulting 2D vector to a new BMP image file (using write_image function)
+
+    write_image("new_sample.bmp", new_image);
 
     return 0;
 }
