@@ -407,6 +407,43 @@ vector<vector<Pixel>> process_3(const vector<vector<Pixel>> &image)
     // Return the new 2D vector after the nested for loop is complete
 }
 
+vector<vector<Pixel>> process_4(const vector<vector<Pixel>> &image)
+{
+    // Get the number of rows/columns from the input 2D vector (remember: num_rows is height, num_columns is width)
+    int height = image.size();
+    int width = image[0].size();
+
+    // Define a new 2D vector the same size as the input 2D vector
+
+    vector<vector<Pixel>> new_img(width, vector<Pixel>(height));
+
+    // For each of the rows in the input 2D vector
+    // For each of the columns in the input 2D vector
+    // Get the color values for the pixel located at this row and column in the input 2D vector
+
+    Pixel this_pixel;
+    int red;
+    int green;
+    int blue;
+    int gray_val;
+
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            this_pixel = image[row][col];
+            new_img[col][(height - 1) - row] = this_pixel;
+        }
+    }
+    return new_img;
+
+    // Perform the operation on the color values (refer to Runestone for this)
+
+    // Save the new color values to the corresponding pixel located at this row and column in the new 2D vector
+
+    // Return the new 2D vector after the nested for loop is complete
+}
+
 int main()
 {
     // Read in BMP image file into a 2D vector (using read_image function)
@@ -415,7 +452,7 @@ int main()
 
     // Call process_1 function using the input 2D vector and save the result returned to a new 2D vector
 
-    vector<vector<Pixel>> new_image = process_3(image);
+    vector<vector<Pixel>> new_image = process_4(image);
 
     // Write the resulting 2D vector to a new BMP image file (using write_image function)
 
