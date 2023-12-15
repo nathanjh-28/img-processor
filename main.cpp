@@ -421,6 +421,31 @@ vector<vector<Pixel>> process_5(const vector<vector<Pixel>> &image, int num)
     }
 }
 
+// ________________________________________________________ PROCESS 6 Enlarge
+
+vector<vector<Pixel>> process_6(const vector<vector<Pixel>> &image, int x_scale, int y_scale)
+{
+    int height = image.size();
+    int new_height = height * y_scale;
+    int width = image[0].size();
+    int new_width = width * x_scale;
+    Pixel this_pixel;
+    int reduced_i;
+    int reduced_j;
+    vector<vector<Pixel>> new_img(new_height, vector<Pixel>(new_width));
+    for (int row = 0; row < new_height; row++)
+    {
+        for (int col = 0; col < new_width * x_scale; col++)
+        {
+            reduced_j = col / x_scale;
+            reduced_i = row / y_scale;
+            this_pixel = image[reduced_i][reduced_j];
+            new_img[row][col] = this_pixel;
+        }
+    }
+    return new_img;
+}
+
 //***************************************************************************************************//
 // PROCESSES 1 - 10  ^^^
 
@@ -466,7 +491,7 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
         cin >> x_scale;
         cout << "Enter Y Scale: ";
         cin >> y_scale;
-        new_image = process_3(image);
+        new_image = process_6(image, x_scale, y_scale);
     }
     if (name_idx == 7)
     {
