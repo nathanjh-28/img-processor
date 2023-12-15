@@ -233,39 +233,14 @@ bool write_image(string filename, const vector<vector<Pixel>> &image)
 //                                DO NOT MODIFY THE SECTION ABOVE                                    //
 //***************************************************************************************************//
 
-// g++ -std=c++11 -o main main.cpp
-// ./main
-
-// g++ -std=c++11 -o main main.cpp && ./main
-
-//
-// YOUR FUNCTION DEFINITIONS HER
-//
-
-// int main()
-// {
-
-//     //
-//     // YOUR CODE HERE
-//     //
-//     cout << "\n\n\nThis line should be your own code!\n\n\n";
-
-//     return 0;
-// }
+// ________________________________________________________ PROCESS 1
 
 vector<vector<Pixel>> process_1(const vector<vector<Pixel>> &image)
 {
-    // Get the number of rows/columns from the input 2D vector (remember: num_rows is height, num_columns is width)
     int height = image.size();
     int width = image[0].size();
 
-    // Define a new 2D vector the same size as the input 2D vector
-
     vector<vector<Pixel>> new_img(height, vector<Pixel>(width));
-
-    // For each of the rows in the input 2D vector
-    // For each of the columns in the input 2D vector
-    // Get the color values for the pixel located at this row and column in the input 2D vector
 
     Pixel this_pixel;
     int red;
@@ -292,27 +267,15 @@ vector<vector<Pixel>> process_1(const vector<vector<Pixel>> &image)
         }
     }
     return new_img;
-
-    // Perform the operation on the color values (refer to Runestone for this)
-
-    // Save the new color values to the corresponding pixel located at this row and column in the new 2D vector
-
-    // Return the new 2D vector after the nested for loop is complete
 }
+// ________________________________________________________ PROCESS 2
 
 vector<vector<Pixel>> process_2(const vector<vector<Pixel>> &image)
 {
-    // Get the number of rows/columns from the input 2D vector (remember: num_rows is height, num_columns is width)
     int height = image.size();
     int width = image[0].size();
 
-    // Define a new 2D vector the same size as the input 2D vector
-
     vector<vector<Pixel>> new_img(height, vector<Pixel>(width));
-
-    // For each of the rows in the input 2D vector
-    // For each of the columns in the input 2D vector
-    // Get the color values for the pixel located at this row and column in the input 2D vector
 
     Pixel this_pixel;
     int red;
@@ -344,9 +307,6 @@ vector<vector<Pixel>> process_2(const vector<vector<Pixel>> &image)
                 green = green * scaling_factor;
                 blue = blue * scaling_factor;
             }
-            // if (avg_val > 89 && avg_val < 170)
-            // {
-            // }
 
             new_img[row][col].red = red;
             new_img[row][col].green = green;
@@ -354,27 +314,15 @@ vector<vector<Pixel>> process_2(const vector<vector<Pixel>> &image)
         }
     }
     return new_img;
-
-    // Perform the operation on the color values (refer to Runestone for this)
-
-    // Save the new color values to the corresponding pixel located at this row and column in the new 2D vector
-
-    // Return the new 2D vector after the nested for loop is complete
 }
+// ________________________________________________________ PROCESS 3
 
 vector<vector<Pixel>> process_3(const vector<vector<Pixel>> &image)
 {
-    // Get the number of rows/columns from the input 2D vector (remember: num_rows is height, num_columns is width)
     int height = image.size();
     int width = image[0].size();
 
-    // Define a new 2D vector the same size as the input 2D vector
-
     vector<vector<Pixel>> new_img(height, vector<Pixel>(width));
-
-    // For each of the rows in the input 2D vector
-    // For each of the columns in the input 2D vector
-    // Get the color values for the pixel located at this row and column in the input 2D vector
 
     Pixel this_pixel;
     int red;
@@ -399,27 +347,15 @@ vector<vector<Pixel>> process_3(const vector<vector<Pixel>> &image)
         }
     }
     return new_img;
-
-    // Perform the operation on the color values (refer to Runestone for this)
-
-    // Save the new color values to the corresponding pixel located at this row and column in the new 2D vector
-
-    // Return the new 2D vector after the nested for loop is complete
 }
+// ________________________________________________________ PROCESS 4
 
 vector<vector<Pixel>> process_4(const vector<vector<Pixel>> &image)
 {
-    // Get the number of rows/columns from the input 2D vector (remember: num_rows is height, num_columns is width)
     int height = image.size();
     int width = image[0].size();
 
-    // Define a new 2D vector the same size as the input 2D vector
-
     vector<vector<Pixel>> new_img(width, vector<Pixel>(height));
-
-    // For each of the rows in the input 2D vector
-    // For each of the columns in the input 2D vector
-    // Get the color values for the pixel located at this row and column in the input 2D vector
 
     Pixel this_pixel;
     int red;
@@ -436,13 +372,9 @@ vector<vector<Pixel>> process_4(const vector<vector<Pixel>> &image)
         }
     }
     return new_img;
-
-    // Perform the operation on the color values (refer to Runestone for this)
-
-    // Save the new color values to the corresponding pixel located at this row and column in the new 2D vector
-
-    // Return the new 2D vector after the nested for loop is complete
 }
+
+// ________________________________________________________ Selection -> Process Image Function
 
 vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
 {
@@ -490,6 +422,8 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
     return new_image;
 }
 
+// ________________________________________________________ Check Valid Input
+
 bool check_valid_input(string input)
 {
     string valid_inputs[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
@@ -503,6 +437,8 @@ bool check_valid_input(string input)
     return false;
 }
 
+// ________________________________________________________ Get filename
+
 string get_filename()
 {
     string filename;
@@ -511,10 +447,12 @@ string get_filename()
     return filename;
 }
 
-void menu_options()
+// ________________________________________________________ Print Menu Options
+
+void menu_options(string filename)
 {
     cout << "IMAGE PROCESSING MENU" << endl;
-    cout << "0) Change image (current: sample.bmp)" << endl;
+    cout << "0) Change image (current: " << filename << ")" << endl;
     cout << "1) Vignette" << endl;
     cout << "2) Clarendon" << endl;
     cout << "3) Grayscale" << endl;
@@ -529,6 +467,8 @@ void menu_options()
     cout << "Enter menu selection (Q to quit): " << endl;
 }
 
+// ________________________________________________________ MAIN FUNCTION
+
 int main()
 {
     string process_names[] = {"rename file", "Vignette", "Clarendon", "Grayscale", "Rotate 90 degrees", "Rotate multiple 90 degrees", "Enlarge", "High contrast", "Lighten", "Darken", "Black, white, red, green, blue"};
@@ -541,7 +481,7 @@ int main()
 
     cout << "CSPB 1300 Image Processing Application" << endl;
     filename = get_filename();
-    menu_options();
+    menu_options(filename);
 
     cin >> selection;
 
@@ -557,21 +497,15 @@ int main()
     }
     if (check_valid_input(selection) == false)
     {
-        cout << "please provide valid input" << endl;
+        cout << "please provide valid input!" << endl;
         return main();
     }
     cout << "Enter output filename: ";
     cin >> output_name;
 
-    // Read in BMP image file into a 2D vector (using read_image function)
-
     vector<vector<Pixel>> image = read_image(filename);
 
-    // Call process_1 function using the input 2D vector and save the result returned to a new 2D vector
-
     vector<vector<Pixel>> new_image = process_image(image, name_idx);
-
-    // Write the resulting 2D vector to a new BMP image file (using write_image function)
 
     write_image(output_name, new_image);
 
@@ -579,3 +513,10 @@ int main()
 
     return 0;
 }
+
+/*
+    g++ -std=c++11 -o main main.cpp
+    ./main
+
+    g++ -std=c++11 -o main main.cpp && ./main
+*/
