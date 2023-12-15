@@ -471,16 +471,17 @@ void menu_options(string filename)
 
 int main()
 {
-    string process_names[] = {"rename file", "Vignette", "Clarendon", "Grayscale", "Rotate 90 degrees", "Rotate multiple 90 degrees", "Enlarge", "High contrast", "Lighten", "Darken", "Black, white, red, green, blue"};
-
     string filename;
-
     string selection;
     int name_idx;
     string output_name;
 
+    string process_names[] = {"rename file", "Vignette", "Clarendon", "Grayscale", "Rotate 90 degrees", "Rotate multiple 90 degrees", "Enlarge", "High contrast", "Lighten", "Darken", "Black, white, red, green, blue"};
+
     cout << "CSPB 1300 Image Processing Application" << endl;
+
     filename = get_filename();
+
     menu_options(filename);
 
     cin >> selection;
@@ -493,11 +494,15 @@ int main()
     if (check_valid_input(selection))
     {
         name_idx = stoi(selection);
+        if (name_idx == 0)
+        {
+            return main();
+        }
         cout << process_names[name_idx] << " selected" << endl;
     }
     if (check_valid_input(selection) == false)
     {
-        cout << "please provide valid input!" << endl;
+        cout << "Please provide valid input!" << endl;
         return main();
     }
     cout << "Enter output filename: ";
