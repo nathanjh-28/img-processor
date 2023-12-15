@@ -518,6 +518,37 @@ vector<vector<Pixel>> process_8(const vector<vector<Pixel>> &image, double scali
     return new_img;
 }
 
+// ________________________________________________________ PROCESS 9 Darken
+
+vector<vector<Pixel>> process_9(const vector<vector<Pixel>> &image, double scaling_factor)
+{
+    int height = image.size();
+    int width = image[0].size();
+
+    vector<vector<Pixel>> new_img(height, vector<Pixel>(width));
+
+    Pixel this_pixel;
+    int red;
+    int green;
+    int blue;
+
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            this_pixel = image[row][col];
+            red = this_pixel.red * scaling_factor;
+            green = this_pixel.green * scaling_factor;
+            blue = this_pixel.blue * scaling_factor;
+
+            new_img[row][col].red = red;
+            new_img[row][col].green = green;
+            new_img[row][col].blue = blue;
+        }
+    }
+    return new_img;
+}
+
 //***************************************************************************************************//
 // PROCESSES 1 - 10  ^^^
 
@@ -581,7 +612,7 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
         double scaling_factor;
         cout << "Enter Scaling Factor: ";
         cin >> scaling_factor;
-        new_image = process_3(image);
+        new_image = process_9(image, scaling_factor);
     }
     if (name_idx == 10)
     {
@@ -595,7 +626,7 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
 bool check_valid_input(string input)
 {
     string valid_inputs[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < 11; i++)
     {
         if (input == valid_inputs[i])
         {
