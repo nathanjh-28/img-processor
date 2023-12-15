@@ -233,7 +233,11 @@ bool write_image(string filename, const vector<vector<Pixel>> &image)
 //                                DO NOT MODIFY THE SECTION ABOVE                                    //
 //***************************************************************************************************//
 
-// ________________________________________________________ PROCESS 1
+//***************************************************************************************************//
+// PROCESSES 1 - 10  VVV
+//***************************************************************************************************//
+
+// ________________________________________________________ PROCESS 1 Vignette
 
 vector<vector<Pixel>> process_1(const vector<vector<Pixel>> &image)
 {
@@ -268,9 +272,9 @@ vector<vector<Pixel>> process_1(const vector<vector<Pixel>> &image)
     }
     return new_img;
 }
-// ________________________________________________________ PROCESS 2
+// ________________________________________________________ PROCESS 2 Clarendon
 
-vector<vector<Pixel>> process_2(const vector<vector<Pixel>> &image)
+vector<vector<Pixel>> process_2(const vector<vector<Pixel>> &image, double scaling_factor)
 {
     int height = image.size();
     int width = image[0].size();
@@ -283,7 +287,6 @@ vector<vector<Pixel>> process_2(const vector<vector<Pixel>> &image)
     int blue;
 
     double avg_val;
-    double scaling_factor = 0.3;
 
     for (int row = 0; row < height; row++)
     {
@@ -315,7 +318,7 @@ vector<vector<Pixel>> process_2(const vector<vector<Pixel>> &image)
     }
     return new_img;
 }
-// ________________________________________________________ PROCESS 3
+// ________________________________________________________ PROCESS 3 Grayscale
 
 vector<vector<Pixel>> process_3(const vector<vector<Pixel>> &image)
 {
@@ -348,7 +351,7 @@ vector<vector<Pixel>> process_3(const vector<vector<Pixel>> &image)
     }
     return new_img;
 }
-// ________________________________________________________ PROCESS 4
+// ________________________________________________________ PROCESS 4 Rotate 90 degrees
 
 vector<vector<Pixel>> process_4(const vector<vector<Pixel>> &image)
 {
@@ -358,10 +361,6 @@ vector<vector<Pixel>> process_4(const vector<vector<Pixel>> &image)
     vector<vector<Pixel>> new_img(width, vector<Pixel>(height));
 
     Pixel this_pixel;
-    int red;
-    int green;
-    int blue;
-    int gray_val;
 
     for (int row = 0; row < height; row++)
     {
@@ -374,6 +373,60 @@ vector<vector<Pixel>> process_4(const vector<vector<Pixel>> &image)
     return new_img;
 }
 
+// ________________________________________________________ PROCESS 5 Rotate multiple 90 degrees
+
+vector<vector<Pixel>> rotate_by_90(const vector<vector<Pixel>> &image)
+{
+    int height = image.size();
+    int width = image[0].size();
+
+    vector<vector<Pixel>> new_img(width, vector<Pixel>(height));
+
+    Pixel this_pixel;
+
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            this_pixel = image[row][col];
+            new_img[col][(height - 1) - row] = this_pixel;
+        }
+    }
+    return new_img;
+}
+
+vector<vector<Pixel>> process_5(const vector<vector<Pixel>> &image, int num)
+{
+
+    int angle = num * 90;
+
+    if (angle % 360 == 0)
+    {
+        return image;
+    }
+
+    if (angle % 360 == 90)
+    {
+        // rotate by 90
+        return rotate_by_90(image);
+    }
+    if (angle % 360 == 180)
+    {
+        // rotate by 180
+        return rotate_by_90(rotate_by_90(image));
+    }
+    else
+    {
+        return rotate_by_90(rotate_by_90(rotate_by_90(image)));
+    }
+}
+
+//***************************************************************************************************//
+// PROCESSES 1 - 10  ^^^
+
+// HELPER FUNCTIONS VVV
+//***************************************************************************************************//
+
 // ________________________________________________________ Selection -> Process Image Function
 
 vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
@@ -385,7 +438,10 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
     }
     if (name_idx == 2)
     {
-        new_image = process_2(image);
+        double scaling_factor;
+        cout << "Enter Scaling Factor: ";
+        cin >> scaling_factor;
+        new_image = process_2(image, scaling_factor);
     }
     if (name_idx == 3)
     {
@@ -397,10 +453,19 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
     }
     if (name_idx == 5)
     {
-        new_image = process_3(image);
+        int num_rotations;
+        cout << "Enter integer of 90 degree rotations: ";
+        cin >> num_rotations;
+        new_image = process_5(image, num_rotations);
     }
     if (name_idx == 6)
     {
+        double x_scale;
+        double y_scale;
+        cout << "Enter X Scale: ";
+        cin >> x_scale;
+        cout << "Enter Y Scale: ";
+        cin >> y_scale;
         new_image = process_3(image);
     }
     if (name_idx == 7)
@@ -409,10 +474,16 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
     }
     if (name_idx == 8)
     {
+        double scaling_factor;
+        cout << "Enter Scaling Factor: ";
+        cin >> scaling_factor;
         new_image = process_3(image);
     }
     if (name_idx == 9)
     {
+        double scaling_factor;
+        cout << "Enter Scaling Factor: ";
+        cin >> scaling_factor;
         new_image = process_3(image);
     }
     if (name_idx == 10)
@@ -488,6 +559,8 @@ int main()
 
     if (selection == "Q")
     {
+        cout << "Thank you for using my program!" << endl;
+        cout << "Quitting..." << endl;
         return 0;
     }
 
@@ -496,6 +569,7 @@ int main()
         name_idx = stoi(selection);
         if (name_idx == 0)
         {
+            cout << "Change image selected" << endl;
             return main();
         }
         cout << process_names[name_idx] << " selected" << endl;
@@ -525,3 +599,12 @@ int main()
 
     g++ -std=c++11 -o main main.cpp && ./main
 */
+
+/**
+
+            To Do
+
+ * Handle new filename scenario
+ * wrap majority logic in to a function inside main, have cout CSPB 1300 Image... appear in main.
+ * else and else if situations?
+ */
