@@ -549,6 +549,95 @@ vector<vector<Pixel>> process_9(const vector<vector<Pixel>> &image, double scali
     return new_img;
 }
 
+// ________________________________________________________ PROCESS 10 Black, white, red, green, blue
+
+int rgb_max(int red, int green, int blue)
+{
+    if (red >= green && red > blue)
+    {
+        return red;
+    }
+    else if (green >= red && green > blue)
+    {
+        return green;
+    }
+    else if (blue >= red && blue > green)
+    {
+        return blue;
+    }
+    else if (red == green && green == blue)
+    {
+        return red;
+    }
+    return 0;
+}
+
+vector<vector<Pixel>> process_10(const vector<vector<Pixel>> &image)
+{
+    int height = image.size();
+    int width = image[0].size();
+    vector<vector<Pixel>> new_img(height, vector<Pixel>(width));
+    Pixel this_pixel;
+
+    int red;
+    int green;
+    int blue;
+    int max_color;
+    int sum_color;
+    int new_red;
+    int new_green;
+    int new_blue;
+
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            this_pixel = image[row][col];
+            red = this_pixel.red;
+            green = this_pixel.green;
+            blue = this_pixel.blue;
+
+            max_color = rgb_max(red, green, blue);
+            sum_color = red + green + blue;
+
+            if (sum_color > 549)
+            {
+                new_red = 255;
+                new_green = 255;
+                new_blue = 255;
+            }
+            else if (sum_color < 151)
+            {
+                new_red = 0;
+                new_green = 0;
+                new_blue = 0;
+            }
+            else if (max_color == red)
+            {
+                new_red = 255;
+                new_green = 0;
+                new_blue = 0;
+            }
+            else if (max_color == green)
+            {
+                new_red = 0;
+                new_green = 255;
+                new_blue = 0;
+            }
+            else if (max_color == blue)
+            {
+                new_red = 0;
+                new_green = 0;
+                new_blue = 255;
+            }
+            new_img[row][col].red = new_red;
+            new_img[row][col].green = new_green;
+            new_img[row][col].blue = new_blue;
+        }
+    }
+    return new_img;
+}
+
 //***************************************************************************************************//
 // PROCESSES 1 - 10  ^^^
 
@@ -616,7 +705,7 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
     }
     if (name_idx == 10)
     {
-        new_image = process_3(image);
+        new_image = process_10(image);
     }
     return new_image;
 }
