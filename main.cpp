@@ -444,19 +444,138 @@ vector<vector<Pixel>> process_4(const vector<vector<Pixel>> &image)
     // Return the new 2D vector after the nested for loop is complete
 }
 
+vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
+{
+    vector<vector<Pixel>> new_image;
+    if (name_idx == 1)
+    {
+        new_image = process_1(image);
+    }
+    if (name_idx == 2)
+    {
+        new_image = process_2(image);
+    }
+    if (name_idx == 3)
+    {
+        new_image = process_3(image);
+    }
+    if (name_idx == 4)
+    {
+        new_image = process_4(image);
+    }
+    if (name_idx == 5)
+    {
+        new_image = process_3(image);
+    }
+    if (name_idx == 6)
+    {
+        new_image = process_3(image);
+    }
+    if (name_idx == 7)
+    {
+        new_image = process_3(image);
+    }
+    if (name_idx == 8)
+    {
+        new_image = process_3(image);
+    }
+    if (name_idx == 9)
+    {
+        new_image = process_3(image);
+    }
+    if (name_idx == 10)
+    {
+        new_image = process_3(image);
+    }
+    return new_image;
+}
+
+bool check_valid_input(string input)
+{
+    string valid_inputs[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+    for (int i = 0; i < 9; i++)
+    {
+        if (input == valid_inputs[i])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+string get_filename()
+{
+    string filename;
+    cout << "input BMP filename: ";
+    cin >> filename;
+    return filename;
+}
+
+void menu_options()
+{
+    cout << "IMAGE PROCESSING MENU" << endl;
+    cout << "0) Change image (current: sample.bmp)" << endl;
+    cout << "1) Vignette" << endl;
+    cout << "2) Clarendon" << endl;
+    cout << "3) Grayscale" << endl;
+    cout << "4) Rotate 90 degrees" << endl;
+    cout << "5) Rotate multiple 90 degrees" << endl;
+    cout << "6) Enlarge" << endl;
+    cout << "7) High contrast" << endl;
+    cout << "8) Lighten" << endl;
+    cout << "9) Darken" << endl;
+    cout << "10) Black, white, red, green, blue" << endl;
+    cout << "" << endl;
+    cout << "Enter menu selection (Q to quit): " << endl;
+}
+
 int main()
 {
+    string process_names[] = {"rename file", "Vignette", "Clarendon", "Grayscale", "Rotate 90 degrees", "Rotate multiple 90 degrees", "Enlarge", "High contrast", "Lighten", "Darken", "Black, white, red, green, blue"};
+
+    string filename;
+
+    string selection;
+    int name_idx;
+    string output_name;
+
+    cout << "CSPB 1300 Image Processing Application" << endl;
+    filename = get_filename();
+    menu_options();
+
+    cin >> selection;
+
+    if (selection == "Q")
+    {
+        return 0;
+    }
+
+    if (check_valid_input(selection))
+    {
+        name_idx = stoi(selection);
+        cout << process_names[name_idx] << " selected" << endl;
+    }
+    if (check_valid_input(selection) == false)
+    {
+        cout << "please provide valid input" << endl;
+        return main();
+    }
+    cout << "Enter output filename: ";
+    cin >> output_name;
+
     // Read in BMP image file into a 2D vector (using read_image function)
 
-    vector<vector<Pixel>> image = read_image("sample.bmp");
+    vector<vector<Pixel>> image = read_image(filename);
 
     // Call process_1 function using the input 2D vector and save the result returned to a new 2D vector
 
-    vector<vector<Pixel>> new_image = process_4(image);
+    vector<vector<Pixel>> new_image = process_image(image, name_idx);
 
     // Write the resulting 2D vector to a new BMP image file (using write_image function)
 
-    write_image("new_sample.bmp", new_image);
+    write_image(output_name, new_image);
+
+    cout << "Successfully applied " << process_names[name_idx] << "!" << endl;
 
     return 0;
 }
