@@ -487,6 +487,36 @@ vector<vector<Pixel>> process_7(const vector<vector<Pixel>> &image)
     }
     return new_img;
 }
+// ________________________________________________________ PROCESS 8 Lighten
+
+vector<vector<Pixel>> process_8(const vector<vector<Pixel>> &image, double scaling_factor)
+{
+    int height = image.size();
+    int width = image[0].size();
+
+    vector<vector<Pixel>> new_img(height, vector<Pixel>(width));
+
+    Pixel this_pixel;
+    int red;
+    int green;
+    int blue;
+
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            this_pixel = image[row][col];
+            red = 255 - (255 - this_pixel.red) * scaling_factor;
+            green = 255 - (255 - this_pixel.green) * scaling_factor;
+            blue = 255 - (255 - this_pixel.blue) * scaling_factor;
+
+            new_img[row][col].red = red;
+            new_img[row][col].green = green;
+            new_img[row][col].blue = blue;
+        }
+    }
+    return new_img;
+}
 
 //***************************************************************************************************//
 // PROCESSES 1 - 10  ^^^
@@ -544,7 +574,7 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
         double scaling_factor;
         cout << "Enter Scaling Factor: ";
         cin >> scaling_factor;
-        new_image = process_3(image);
+        new_image = process_8(image, scaling_factor);
     }
     if (name_idx == 9)
     {
