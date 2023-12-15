@@ -446,6 +446,48 @@ vector<vector<Pixel>> process_6(const vector<vector<Pixel>> &image, int x_scale,
     return new_img;
 }
 
+// ________________________________________________________ PROCESS 7 High contrast
+vector<vector<Pixel>> process_7(const vector<vector<Pixel>> &image)
+{
+    int height = image.size();
+    int width = image[0].size();
+
+    vector<vector<Pixel>> new_img(height, vector<Pixel>(width));
+
+    Pixel this_pixel;
+    int red;
+    int green;
+    int blue;
+    int gray_val;
+
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            this_pixel = image[row][col];
+            red = this_pixel.red;
+            green = this_pixel.green;
+            blue = this_pixel.blue;
+
+            gray_val = (red + green + blue) / 3;
+
+            if (gray_val < 128)
+            {
+                new_img[row][col].red = 0;
+                new_img[row][col].green = 0;
+                new_img[row][col].blue = 0;
+            }
+            if (gray_val > 127)
+            {
+                new_img[row][col].red = 255;
+                new_img[row][col].green = 255;
+                new_img[row][col].blue = 255;
+            }
+        }
+    }
+    return new_img;
+}
+
 //***************************************************************************************************//
 // PROCESSES 1 - 10  ^^^
 
@@ -495,7 +537,7 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
     }
     if (name_idx == 7)
     {
-        new_image = process_3(image);
+        new_image = process_7(image);
     }
     if (name_idx == 8)
     {
