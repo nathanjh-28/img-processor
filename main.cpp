@@ -430,16 +430,16 @@ vector<vector<Pixel>> process_6(const vector<vector<Pixel>> &image, int x_scale,
     int width = image[0].size();
     int new_width = width * x_scale;
     Pixel this_pixel;
-    int reduced_i;
-    int reduced_j;
+    int reduced_col;
+    int reduced_row;
     vector<vector<Pixel>> new_img(new_height, vector<Pixel>(new_width));
     for (int row = 0; row < new_height; row++)
     {
         for (int col = 0; col < new_width * x_scale; col++)
         {
-            reduced_j = col / x_scale;
-            reduced_i = row / y_scale;
-            this_pixel = image[reduced_i][reduced_j];
+            reduced_col = col / x_scale;
+            reduced_row = row / y_scale;
+            this_pixel = image[reduced_row][reduced_col];
             new_img[row][col] = this_pixel;
         }
     }
