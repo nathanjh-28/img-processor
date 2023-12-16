@@ -723,6 +723,12 @@ vector<vector<Pixel>> process_10(const vector<vector<Pixel>> &image)
 
 // ________________________________________________________ Process 11 Mirror Horizontally
 
+/**
+ * Description: Flips the image horizontally to make a mirrored image
+ * @param 2d vector of type Pixel
+ * @return a new 2d vector of type pixel modified
+ */
+
 vector<vector<Pixel>> process_11(const vector<vector<Pixel>> &image)
 {
     int height = image.size();
@@ -741,6 +747,12 @@ vector<vector<Pixel>> process_11(const vector<vector<Pixel>> &image)
 
 // ________________________________________________________ Process 12 Mirror Vertically
 
+/**
+ * Description: Flips the image vertically to make a mirrored image
+ * @param 2d vector of type Pixel
+ * @return a new 2d vector of type pixel modified
+ */
+
 vector<vector<Pixel>> process_12(const vector<vector<Pixel>> &image)
 {
     int height = image.size();
@@ -752,6 +764,104 @@ vector<vector<Pixel>> process_12(const vector<vector<Pixel>> &image)
         for (int col = 0; col < width; col++)
         {
             new_img[height - row - 1][col] = image[row][col];
+        }
+    }
+    return new_img;
+}
+
+// ________________________________________________________ Process 13 Mix 2 images
+
+/**
+ * Description: Blends two images together by averaging the pixels
+ * @param 2d vector of type Pixel
+ * @param 2d vector of type Pixel for image B
+ * @return a new 2d vector of type pixel modified
+ */
+
+vector<vector<Pixel>> process_13(const vector<vector<Pixel>> &image, const vector<vector<Pixel>> &image_B)
+{
+    int height = image.size();
+    int width = image[0].size();
+    int height_B = image_B.size();
+    int width_B = image_B[0].size();
+    vector<vector<Pixel>> new_img(height, vector<Pixel>(width));
+
+    if (height != height_B || width != width_B)
+    {
+        return new_img;
+    }
+
+    int red_A;
+    int green_A;
+    int blue_A;
+    int red_B;
+    int green_B;
+    int blue_B;
+
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            red_A = image[row][col].red;
+            green_A = image[row][col].green;
+            blue_A = image[row][col].blue;
+            red_B = image_B[row][col].red;
+            green_B = image_B[row][col].green;
+            blue_B = image_B[row][col].blue;
+
+            new_img[row][col].red = (red_A + red_B) / 2;
+            new_img[row][col].green = (green_A + green_B) / 2;
+            new_img[row][col].blue = (blue_A + blue_B) / 2;
+        }
+    }
+    return new_img;
+}
+
+// ________________________________________________________ Process 14 Weighted Mix 2 images
+
+/**
+ * Description: Blends two images together by computing weights and averaging the pixels
+ * @param 2d vector of type Pixel
+ * @param 2d vector of type Pixel for image B
+ * @param floating point weight, between 0 and 1.
+ * @param floating point weight, between 0 and 1.
+ * @return a new 2d vector of type pixel modified
+ */
+
+vector<vector<Pixel>> process_14(const vector<vector<Pixel>> &image, const vector<vector<Pixel>> &image_B, double weight_A, double weight_B)
+{
+    int height = image.size();
+    int width = image[0].size();
+    int height_B = image_B.size();
+    int width_B = image_B[0].size();
+    vector<vector<Pixel>> new_img(height, vector<Pixel>(width));
+
+    if (height != height_B || width != width_B)
+    {
+        return new_img;
+    }
+
+    int red_A;
+    int green_A;
+    int blue_A;
+    int red_B;
+    int green_B;
+    int blue_B;
+
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            red_A = image[row][col].red * weight_A;
+            green_A = image[row][col].green * weight_A;
+            blue_A = image[row][col].blue * weight_A;
+            red_B = image_B[row][col].red * weight_B;
+            green_B = image_B[row][col].green * weight_B;
+            blue_B = image_B[row][col].blue * weight_B;
+
+            new_img[row][col].red = (red_A + red_B) / 2;
+            new_img[row][col].green = (green_A + green_B) / 2;
+            new_img[row][col].blue = (blue_A + blue_B) / 2;
         }
     }
     return new_img;
@@ -852,8 +962,8 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
 
 bool check_valid_input(string input)
 {
-    string valid_inputs[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-    for (int i = 0; i < 13; i++)
+    string valid_inputs[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"};
+    for (int i = 0; i < 15; i++)
     {
         if (input == valid_inputs[i])
         {
@@ -904,6 +1014,8 @@ void menu_options(string filename)
     cout << "10) Black, white, red, green, blue" << endl;
     cout << "11) Mirror Horizontally" << endl;
     cout << "12) Mirror Vertically" << endl;
+    cout << "13) Blend 2 images" << endl;
+    cout << "14) Weighted Blend of 2 images" << endl;
     cout << "" << endl;
     cout << "Enter menu selection (Q to quit): ";
 }
@@ -926,7 +1038,7 @@ string application()
     int name_idx;
     string output_name;
 
-    string process_names[] = {"rename file", "Vignette", "Clarendon", "Grayscale", "Rotate 90 degrees", "Rotate multiple 90 degrees", "Enlarge", "High contrast", "Lighten", "Darken", "Black, white, red, green, blue", "Mirror Horizontally", "Mirror Vertically"};
+    string process_names[] = {"rename file", "Vignette", "Clarendon", "Grayscale", "Rotate 90 degrees", "Rotate multiple 90 degrees", "Enlarge", "High contrast", "Lighten", "Darken", "Black, white, red, green, blue", "Mirror Horizontally", "Mirror Vertically", "Blend 2 images", "Weighted blend of images"};
 
     filename = get_filename();
 
@@ -955,6 +1067,57 @@ string application()
         name_idx = stoi(selection);
         cout << process_names[name_idx] << " selected" << endl;
     }
+    // ________________________________________________________________ optional stuff starts here
+    if (name_idx == 13)
+    {
+        string filename_B;
+        cout << "input BMP filename for 2nd image, must match size! ";
+        cin >> filename_B;
+        cout << "Enter output BMP filename: ";
+        cin >> output_name;
+        vector<vector<Pixel>> image = read_image(filename);
+        vector<vector<Pixel>> image_B = read_image(filename_B);
+        if (image.size() != image_B.size() || image[0].size() != image_B[0].size())
+        {
+            cout << "image sizes do not match!!!";
+            application();
+        }
+        vector<vector<Pixel>> new_image = process_13(image, image_B);
+        write_image(output_name, new_image);
+        return "Successfully applied " + process_names[name_idx] + "!";
+    }
+    if (name_idx == 14)
+    {
+        double weight_A;
+        cout << "input weight for first image, weights must add to 1: ";
+        cin >> weight_A;
+        string filename_B;
+        cout << "input BMP filename for 2nd image, must match size! ";
+        cin >> filename_B;
+        double weight_B;
+        cout << "input weight for second image, weights must add to 1: ";
+        cin >> weight_B;
+
+        if (weight_A + weight_B != 1.0)
+        {
+            cout << "weights do not equal 1!\n\n";
+            return application();
+        }
+
+        cout << "Enter output BMP filename: ";
+        cin >> output_name;
+        vector<vector<Pixel>> image = read_image(filename);
+        vector<vector<Pixel>> image_B = read_image(filename_B);
+        if (image.size() != image_B.size() || image[0].size() != image_B[0].size())
+        {
+            cout << "image sizes do not match!!!";
+            application();
+        }
+        vector<vector<Pixel>> new_image = process_14(image, image_B, weight_A, weight_B);
+        write_image(output_name, new_image);
+        return "Successfully applied " + process_names[name_idx] + "!";
+    }
+    // ________________________________________________________________ optional stuff ends here
 
     cout << "Enter output BMP filename: ";
     cin >> output_name;
@@ -972,9 +1135,11 @@ string application()
 
 int main()
 {
+
     cout << "CSPB 1300 Image Processing Application" << endl;
     string message = application();
     cout << message;
+
     return 0;
 }
 
