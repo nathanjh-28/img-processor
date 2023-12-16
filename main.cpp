@@ -721,6 +721,26 @@ vector<vector<Pixel>> process_10(const vector<vector<Pixel>> &image)
     return new_img;
 }
 
+// ________________________________________________________ Process 11 Mirror Horizontally
+
+vector<vector<Pixel>> process_11(const vector<vector<Pixel>> &image)
+{
+    int height = image.size();
+    int width = image[0].size();
+    vector<vector<Pixel>> new_img(height, vector<Pixel>(width));
+
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            new_img[row][width - col - 1] = image[row][col];
+        }
+    }
+    return new_img;
+}
+
+// ________________________________________________________ Process 11 Mirror Vertically
+
 //***************************************************************************************************//
 // HELPER FUNCTIONS FOR APPLICATION
 //***************************************************************************************************//
@@ -795,6 +815,10 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
     {
         new_image = process_10(image);
     }
+    else if (name_idx == 11)
+    {
+        new_image = process_11(image);
+    }
     return new_image;
 }
 
@@ -808,8 +832,8 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
 
 bool check_valid_input(string input)
 {
-    string valid_inputs[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-    for (int i = 0; i < 11; i++)
+    string valid_inputs[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
+    for (int i = 0; i < 12; i++)
     {
         if (input == valid_inputs[i])
         {
@@ -858,6 +882,7 @@ void menu_options(string filename)
     cout << "8) Lighten" << endl;
     cout << "9) Darken" << endl;
     cout << "10) Black, white, red, green, blue" << endl;
+    cout << "11) Mirror Horizontally" << endl;
     cout << "" << endl;
     cout << "Enter menu selection (Q to quit): ";
 }
@@ -880,7 +905,7 @@ string application()
     int name_idx;
     string output_name;
 
-    string process_names[] = {"rename file", "Vignette", "Clarendon", "Grayscale", "Rotate 90 degrees", "Rotate multiple 90 degrees", "Enlarge", "High contrast", "Lighten", "Darken", "Black, white, red, green, blue"};
+    string process_names[] = {"rename file", "Vignette", "Clarendon", "Grayscale", "Rotate 90 degrees", "Rotate multiple 90 degrees", "Enlarge", "High contrast", "Lighten", "Darken", "Black, white, red, green, blue", "Mirror Horizontally"};
 
     filename = get_filename();
 
