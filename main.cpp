@@ -233,11 +233,19 @@ bool write_image(string filename, const vector<vector<Pixel>> &image)
 //                                DO NOT MODIFY THE SECTION ABOVE                                    //
 //***************************************************************************************************//
 
+// --------------------------------------------------------------------------------------------------//
+
 //***************************************************************************************************//
-// PROCESSES 1 - 10  VVV
+// PROCESSES 1 - 10
 //***************************************************************************************************//
 
 // ________________________________________________________ PROCESS 1 Vignette
+
+/**
+ * Description: Adds vignette effect to image (dark corners)
+ * @param 2d vector of type Pixel
+ * @return a new 2d vector of type pixel modified
+ */
 
 vector<vector<Pixel>> process_1(const vector<vector<Pixel>> &image)
 {
@@ -273,6 +281,13 @@ vector<vector<Pixel>> process_1(const vector<vector<Pixel>> &image)
     return new_img;
 }
 // ________________________________________________________ PROCESS 2 Clarendon
+
+/**
+ * Description: Adds Clarendon effect to image (darks darker and lights lighter) by a scaling factor
+ * @param 2d vector of type Pixel
+ * @param floating point scaling factor number
+ * @return a new 2d vector of type pixel modified
+ */
 
 vector<vector<Pixel>> process_2(const vector<vector<Pixel>> &image, double scaling_factor)
 {
@@ -320,6 +335,12 @@ vector<vector<Pixel>> process_2(const vector<vector<Pixel>> &image, double scali
 }
 // ________________________________________________________ PROCESS 3 Grayscale
 
+/**
+ * Description: Grayscale image.
+ * @param 2d vector of type Pixel
+ * @return a new 2d vector of type pixel modified
+ */
+
 vector<vector<Pixel>> process_3(const vector<vector<Pixel>> &image)
 {
     int height = image.size();
@@ -353,6 +374,12 @@ vector<vector<Pixel>> process_3(const vector<vector<Pixel>> &image)
 }
 // ________________________________________________________ PROCESS 4 Rotate 90 degrees
 
+/**
+ * Description: Rotate image 90 degrees clockwise
+ * @param 2d vector of type Pixel
+ * @return a new 2d vector of type pixel modified
+ */
+
 vector<vector<Pixel>> process_4(const vector<vector<Pixel>> &image)
 {
     int height = image.size();
@@ -375,6 +402,12 @@ vector<vector<Pixel>> process_4(const vector<vector<Pixel>> &image)
 
 // ________________________________________________________ PROCESS 5 Rotate multiple 90 degrees
 
+/**
+ * Description: Rotate image by 90 degrees.
+ * @param 2d vector of type Pixel
+ * @return a new 2d vector of type pixel modified
+ */
+
 vector<vector<Pixel>> rotate_by_90(const vector<vector<Pixel>> &image)
 {
     int height = image.size();
@@ -394,6 +427,13 @@ vector<vector<Pixel>> rotate_by_90(const vector<vector<Pixel>> &image)
     }
     return new_img;
 }
+
+/**
+ * Description: Rotates image by a specified number of multiples of 90 degrees clockwise
+ * @param 2d vector of type Pixel
+ * @param integer multiple
+ * @return a new 2d vector of type pixel modified
+ */
 
 vector<vector<Pixel>> process_5(const vector<vector<Pixel>> &image, int num)
 {
@@ -423,6 +463,14 @@ vector<vector<Pixel>> process_5(const vector<vector<Pixel>> &image, int num)
 
 // ________________________________________________________ PROCESS 6 Enlarge
 
+/**
+ * Description: Enlarges the image in the x and y direction
+ * @param 2d vector of type Pixel
+ * @param integer number to scale width (x)
+ * @param integer number to scale height (y)
+ * @return a new 2d vector of type pixel modified
+ */
+
 vector<vector<Pixel>> process_6(const vector<vector<Pixel>> &image, int x_scale, int y_scale)
 {
     int height = image.size();
@@ -447,6 +495,13 @@ vector<vector<Pixel>> process_6(const vector<vector<Pixel>> &image, int x_scale,
 }
 
 // ________________________________________________________ PROCESS 7 High contrast
+
+/**
+ * Description: Convert image to high contrast (black and white only)
+ * @param 2d vector of type Pixel
+ * @return a new 2d vector of type pixel modified
+ */
+
 vector<vector<Pixel>> process_7(const vector<vector<Pixel>> &image)
 {
     int height = image.size();
@@ -489,6 +544,13 @@ vector<vector<Pixel>> process_7(const vector<vector<Pixel>> &image)
 }
 // ________________________________________________________ PROCESS 8 Lighten
 
+/**
+ * Description: Lightens image by a scaling factor
+ * @param 2d vector of type Pixel
+ * @param floating point scaling factor for lightening image
+ * @return a new 2d vector of type pixel modified
+ */
+
 vector<vector<Pixel>> process_8(const vector<vector<Pixel>> &image, double scaling_factor)
 {
     int height = image.size();
@@ -519,6 +581,13 @@ vector<vector<Pixel>> process_8(const vector<vector<Pixel>> &image, double scali
 }
 
 // ________________________________________________________ PROCESS 9 Darken
+
+/**
+ * Description: Darkens image by a scaling factor
+ * @param 2d vector of type Pixel
+ * @param floating point scaling factor for darkening image
+ * @return a new 2d vector of type pixel modified
+ */
 
 vector<vector<Pixel>> process_9(const vector<vector<Pixel>> &image, double scaling_factor)
 {
@@ -551,17 +620,25 @@ vector<vector<Pixel>> process_9(const vector<vector<Pixel>> &image, double scali
 
 // ________________________________________________________ PROCESS 10 Black, white, red, green, blue
 
+/**
+ * Description: Selects the max value from a pixel, red, green or blue.
+ * @param int red
+ * @param int green
+ * @param int blue
+ * @return max value of the three rgb values
+ */
+
 int rgb_max(int red, int green, int blue)
 {
-    if (red >= green && red > blue)
+    if (red >= green && red >= blue)
     {
         return red;
     }
-    else if (green >= red && green > blue)
+    else if (green >= red && green >= blue)
     {
         return green;
     }
-    else if (blue >= red && blue > green)
+    else if (blue >= red && blue >= green)
     {
         return blue;
     }
@@ -571,6 +648,12 @@ int rgb_max(int red, int green, int blue)
     }
     return 0;
 }
+
+/**
+ * Description: Converts image to only black, white, red, blue, and green
+ * @param 2d vector of type Pixel
+ * @return a new 2d vector of type pixel modified
+ */
 
 vector<vector<Pixel>> process_10(const vector<vector<Pixel>> &image)
 {
@@ -639,12 +722,17 @@ vector<vector<Pixel>> process_10(const vector<vector<Pixel>> &image)
 }
 
 //***************************************************************************************************//
-// PROCESSES 1 - 10  ^^^
-
-// HELPER FUNCTIONS VVV
+// HELPER FUNCTIONS FOR APPLICATION
 //***************************************************************************************************//
 
 // ________________________________________________________ Selection -> Process Image Function
+
+/**
+ * Description: Takes user selection and processes image.  Prompts user if additional info needed.
+ * @param 2d vector of type Pixel
+ * @param int number for selecting process
+ * @return a new 2d vector of type pixel modified
+ */
 
 vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
 {
@@ -653,29 +741,29 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
     {
         new_image = process_1(image);
     }
-    if (name_idx == 2)
+    else if (name_idx == 2)
     {
         double scaling_factor;
         cout << "Enter Scaling Factor: ";
         cin >> scaling_factor;
         new_image = process_2(image, scaling_factor);
     }
-    if (name_idx == 3)
+    else if (name_idx == 3)
     {
         new_image = process_3(image);
     }
-    if (name_idx == 4)
+    else if (name_idx == 4)
     {
         new_image = process_4(image);
     }
-    if (name_idx == 5)
+    else if (name_idx == 5)
     {
         int num_rotations;
         cout << "Enter integer of 90 degree rotations: ";
         cin >> num_rotations;
         new_image = process_5(image, num_rotations);
     }
-    if (name_idx == 6)
+    else if (name_idx == 6)
     {
         double x_scale;
         double y_scale;
@@ -685,25 +773,25 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
         cin >> y_scale;
         new_image = process_6(image, x_scale, y_scale);
     }
-    if (name_idx == 7)
+    else if (name_idx == 7)
     {
         new_image = process_7(image);
     }
-    if (name_idx == 8)
+    else if (name_idx == 8)
     {
         double scaling_factor;
         cout << "Enter Scaling Factor: ";
         cin >> scaling_factor;
         new_image = process_8(image, scaling_factor);
     }
-    if (name_idx == 9)
+    else if (name_idx == 9)
     {
         double scaling_factor;
         cout << "Enter Scaling Factor: ";
         cin >> scaling_factor;
         new_image = process_9(image, scaling_factor);
     }
-    if (name_idx == 10)
+    else if (name_idx == 10)
     {
         new_image = process_10(image);
     }
@@ -711,6 +799,12 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
 }
 
 // ________________________________________________________ Check Valid Input
+
+/**
+ * Description: Checks if the user's selection is valid
+ * @param string, user's selection
+ * @return true if valid selection, false if invalid.
+ */
 
 bool check_valid_input(string input)
 {
@@ -727,6 +821,12 @@ bool check_valid_input(string input)
 
 // ________________________________________________________ Get filename
 
+/**
+ * Description: get's name of image for processing and returns it
+ * @param
+ * @return string, filename
+ */
+
 string get_filename()
 {
     string filename;
@@ -736,6 +836,12 @@ string get_filename()
 }
 
 // ________________________________________________________ Print Menu Options
+
+/**
+ * Description: Prints out menu options for user
+ * @param string filename to insert in the first selection
+ * @return
+ */
 
 void menu_options(string filename)
 {
@@ -754,11 +860,20 @@ void menu_options(string filename)
     cout << "" << endl;
     cout << "Enter menu selection (Q to quit): " << endl;
 }
+//***************************************************************************************************//
+// Application
+//***************************************************************************************************//
 
-// ________________________________________________________ MAIN FUNCTION
+/**
+ * Description: Handles important variables, control flow for implementing application with helper
+ * function calls and reading/writing image.
+ * @param
+ * @return string with success or failure message
+ */
 
-int main()
+string application()
 {
+
     string filename;
     string selection;
     int name_idx;
@@ -766,36 +881,34 @@ int main()
 
     string process_names[] = {"rename file", "Vignette", "Clarendon", "Grayscale", "Rotate 90 degrees", "Rotate multiple 90 degrees", "Enlarge", "High contrast", "Lighten", "Darken", "Black, white, red, green, blue"};
 
-    cout << "CSPB 1300 Image Processing Application" << endl;
-
     filename = get_filename();
 
     menu_options(filename);
 
     cin >> selection;
 
+    if (check_valid_input(selection) == false)
+    {
+        cout << "Please provide valid input!" << endl;
+        return application();
+    }
+
     if (selection == "Q")
     {
-        cout << "Thank you for using my program!" << endl;
-        cout << "Quitting..." << endl;
-        return 0;
+        return "Thank you for using my program!\n Quitting...";
+    }
+
+    if (selection == "0")
+    {
+        return application();
     }
 
     if (check_valid_input(selection))
     {
         name_idx = stoi(selection);
-        if (name_idx == 0)
-        {
-            cout << "Change image selected" << endl;
-            return main();
-        }
         cout << process_names[name_idx] << " selected" << endl;
     }
-    if (check_valid_input(selection) == false)
-    {
-        cout << "Please provide valid input!" << endl;
-        return main();
-    }
+
     cout << "Enter output filename: ";
     cin >> output_name;
 
@@ -805,8 +918,16 @@ int main()
 
     write_image(output_name, new_image);
 
-    cout << "Successfully applied " << process_names[name_idx] << "!" << endl;
+    return "Successfully applied " + process_names[name_idx] + "!";
+}
 
+// ________________________________________________________ MAIN FUNCTION
+
+int main()
+{
+    cout << "CSPB 1300 Image Processing Application" << endl;
+    string message = application();
+    cout << message;
     return 0;
 }
 
@@ -816,12 +937,3 @@ int main()
 
     g++ -std=c++11 -o main main.cpp && ./main
 */
-
-/**
-
-            To Do
-
- * Handle new filename scenario
- * wrap majority logic in to a function inside main, have cout CSPB 1300 Image... appear in main.
- * else and else if situations?
- */
