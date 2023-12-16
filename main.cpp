@@ -845,6 +845,7 @@ string get_filename()
 
 void menu_options(string filename)
 {
+    cout << "" << endl;
     cout << "IMAGE PROCESSING MENU" << endl;
     cout << "0) Change image (current: " << filename << ")" << endl;
     cout << "1) Vignette" << endl;
@@ -858,7 +859,7 @@ void menu_options(string filename)
     cout << "9) Darken" << endl;
     cout << "10) Black, white, red, green, blue" << endl;
     cout << "" << endl;
-    cout << "Enter menu selection (Q to quit): " << endl;
+    cout << "Enter menu selection (Q to quit): ";
 }
 //***************************************************************************************************//
 // Application
@@ -887,19 +888,19 @@ string application()
 
     cin >> selection;
 
+    if (selection == "Q")
+    {
+        return "\nThank you for using my program!\nQuitting... \n\n";
+    }
     if (check_valid_input(selection) == false)
     {
         cout << "Please provide valid input!" << endl;
         return application();
     }
 
-    if (selection == "Q")
-    {
-        return "Thank you for using my program!\n Quitting...";
-    }
-
     if (selection == "0")
     {
+        cout << "Change image Selected!";
         return application();
     }
 
@@ -909,7 +910,7 @@ string application()
         cout << process_names[name_idx] << " selected" << endl;
     }
 
-    cout << "Enter output filename: ";
+    cout << "Enter output BMP filename: ";
     cin >> output_name;
 
     vector<vector<Pixel>> image = read_image(filename);
