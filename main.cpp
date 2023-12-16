@@ -8,13 +8,16 @@ PLEASE FILL OUT THIS SECTION PRIOR TO SUBMISSION
     Nathan J Harris
 
 - All project requirements fully met? (YES or NO):
-    <ANSWER>
+    YES
 
 - If no, please explain what you could not get to work:
-    <ANSWER>
+    N/A
 
 - Did you do any optional enhancements? If so, please explain:
-    <ANSWER>
+    Mirror image Horizontally
+    Mirror image Vertically
+    Blend 2 images by averaging pixels
+    weighted Blend of 2 images
 */
 
 #include <iostream>
