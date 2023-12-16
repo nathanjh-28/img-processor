@@ -739,7 +739,23 @@ vector<vector<Pixel>> process_11(const vector<vector<Pixel>> &image)
     return new_img;
 }
 
-// ________________________________________________________ Process 11 Mirror Vertically
+// ________________________________________________________ Process 12 Mirror Vertically
+
+vector<vector<Pixel>> process_12(const vector<vector<Pixel>> &image)
+{
+    int height = image.size();
+    int width = image[0].size();
+    vector<vector<Pixel>> new_img(height, vector<Pixel>(width));
+
+    for (int row = 0; row < height; row++)
+    {
+        for (int col = 0; col < width; col++)
+        {
+            new_img[height - row - 1][col] = image[row][col];
+        }
+    }
+    return new_img;
+}
 
 //***************************************************************************************************//
 // HELPER FUNCTIONS FOR APPLICATION
@@ -819,6 +835,10 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
     {
         new_image = process_11(image);
     }
+    else if (name_idx == 12)
+    {
+        new_image = process_12(image);
+    }
     return new_image;
 }
 
@@ -832,8 +852,8 @@ vector<vector<Pixel>> process_image(vector<vector<Pixel>> image, int name_idx)
 
 bool check_valid_input(string input)
 {
-    string valid_inputs[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
-    for (int i = 0; i < 12; i++)
+    string valid_inputs[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+    for (int i = 0; i < 13; i++)
     {
         if (input == valid_inputs[i])
         {
@@ -883,6 +903,7 @@ void menu_options(string filename)
     cout << "9) Darken" << endl;
     cout << "10) Black, white, red, green, blue" << endl;
     cout << "11) Mirror Horizontally" << endl;
+    cout << "12) Mirror Vertically" << endl;
     cout << "" << endl;
     cout << "Enter menu selection (Q to quit): ";
 }
@@ -905,7 +926,7 @@ string application()
     int name_idx;
     string output_name;
 
-    string process_names[] = {"rename file", "Vignette", "Clarendon", "Grayscale", "Rotate 90 degrees", "Rotate multiple 90 degrees", "Enlarge", "High contrast", "Lighten", "Darken", "Black, white, red, green, blue", "Mirror Horizontally"};
+    string process_names[] = {"rename file", "Vignette", "Clarendon", "Grayscale", "Rotate 90 degrees", "Rotate multiple 90 degrees", "Enlarge", "High contrast", "Lighten", "Darken", "Black, white, red, green, blue", "Mirror Horizontally", "Mirror Vertically"};
 
     filename = get_filename();
 
